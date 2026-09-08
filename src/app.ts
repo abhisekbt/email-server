@@ -39,7 +39,7 @@ export function createApp() {
     }
   });
 
-  app.use("/api/auth", authRouter);
+  app.use("/auth", authRouter);
   app.use("/api/companies", companiesRouter);
   app.use("/api/categories", categoriesRouter);
   app.use("/api/email-templates", templatesRouter);
