@@ -40,11 +40,11 @@ export function createApp() {
   });
 
   app.use("/auth", authRouter);
-  app.use("/api/companies", companiesRouter);
-  app.use("/api/categories", categoriesRouter);
-  app.use("/api/email-templates", templatesRouter);
-  app.use("/api/communications", communicationsRouter);
-  app.use("/api/smtp-config", smtpRouter);
+  app.use("/companies", companiesRouter);
+  app.use("/categories", categoriesRouter);
+  app.use("/email-templates", templatesRouter);
+  app.use("/communications", communicationsRouter);
+  app.use("/smtp-config", smtpRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);
