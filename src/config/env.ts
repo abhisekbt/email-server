@@ -15,7 +15,7 @@ export const env = {
   supabaseDatabaseUrl: process.env.SUPABASE_DATABASE_URL || process.env.DATABASE_FALLBACK_URL || null,
   supabaseSyncIntervalMinutes: Number(process.env.SUPABASE_SYNC_INTERVAL_MINUTES ?? 60),
   smtp: {
-    host: process.env.SMTP_HOST ?? "smtp.example.com",
+    host: process.env.SMTP_HOST ?? "smtp.gmail.com",
     port: Number(process.env.SMTP_PORT ?? 587),
     username: process.env.SMTP_USERNAME ?? "",
     password: process.env.SMTP_PASSWORD ?? "",
