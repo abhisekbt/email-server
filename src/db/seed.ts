@@ -36,14 +36,14 @@ async function seed() {
 
   await pool.query(
     `INSERT INTO companies
-      (company_name, contact_person, email, alternative_email, mobile, address, pan, industry, status, categories, created_date)
+      (company_name, contact_person, email, alternative_email, mobile, address, pan, act, sector_id, status, categories, created_date)
     VALUES
-      ('Northwind Holdings Pvt. Ltd.', 'Alicia Grant', 'ops@northwind.com', 'alerts@northwind.com', '9876543210', 'Tower A, 21st Floor, Kathmandu', 'ABCPG1234H', 'Financial Services', 'Active', ARRAY['Direct Tax','Statutory Audit'], '2024-01-16'),
-      ('Verde Capital Partners', 'Darius Cole', 'finance@verdecapital.com', NULL, '9123456780', 'Sector 22, Lalitpur', 'CCQPK4567L', 'Asset Management', 'Active', ARRAY['Corporate Law','Financial Advisory'], '2024-03-02'),
-      ('Harbor Advisory Group', 'Mina Flores', 'team@harboradvisory.co', NULL, '9000111222', 'Commercial Hub, Pokhara', 'DEWPM7890Q', 'Consulting', 'Inactive', ARRAY['Statutory Audit'], '2023-10-08'),
-      ('Summit Ledger Technologies', 'Ravi Sharma', 'accounts@summitlegder.com', NULL, '9988776655', 'Technology Park, Kathmandu', 'FGHRS1122M', 'Technology', 'Active', ARRAY['Direct Tax','Payroll & HR'], '2024-05-21'),
-      ('Lumen Advisory Ltd.', 'Nadia Brooks', 'hello@lumenadvisory.com', NULL, '9012345678', 'Central Business District, Biratnagar', 'LMNBR3344N', 'Corporate Advisory', 'Active', ARRAY['Corporate Law'], '2024-06-11'),
-      ('Beacon Financial Corporation', 'Owen Blake', 'info@beaconfinancial.com', NULL, '9765432109', 'Trade Tower, Kathmandu', 'BCNFN5566P', 'Banking & Finance', 'Active', ARRAY['Direct Tax','Financial Advisory'], '2024-06-25')`
+      ('Northwind Holdings Pvt. Ltd.', 'Alicia Grant', 'ops@northwind.com', 'alerts@northwind.com', '9876543210', 'Tower A, 21st Floor, Kathmandu', 'ABCPG1234H', 'Financial Services', (SELECT id FROM sectors WHERE sector = 'Banking'), 'Active', ARRAY['Direct Tax','Statutory Audit'], '2024-01-16'),
+      ('Verde Capital Partners', 'Darius Cole', 'finance@verdecapital.com', NULL, '9123456780', 'Sector 22, Lalitpur', 'CCQPK4567L', 'Asset Management', (SELECT id FROM sectors WHERE sector = 'Banking'), 'Active', ARRAY['Corporate Law','Financial Advisory'], '2024-03-02'),
+      ('Harbor Advisory Group', 'Mina Flores', 'team@harboradvisory.co', NULL, '9000111222', 'Commercial Hub, Pokhara', 'DEWPM7890Q', 'Consulting', (SELECT id FROM sectors WHERE sector = 'Hospitality'), 'Inactive', ARRAY['Statutory Audit'], '2023-10-08'),
+      ('Summit Ledger Technologies', 'Ravi Sharma', 'accounts@summitlegder.com', NULL, '9988776655', 'Technology Park, Kathmandu', 'FGHRS1122M', 'Technology', (SELECT id FROM sectors WHERE sector = 'IT'), 'Active', ARRAY['Direct Tax','Payroll & HR'], '2024-05-21'),
+      ('Lumen Advisory Ltd.', 'Nadia Brooks', 'hello@lumenadvisory.com', NULL, '9012345678', 'Central Business District, Biratnagar', 'LMNBR3344N', 'Corporate Advisory', (SELECT id FROM sectors WHERE sector = 'IT'), 'Active', ARRAY['Corporate Law'], '2024-06-11'),
+      ('Beacon Financial Corporation', 'Owen Blake', 'info@beaconfinancial.com', NULL, '9765432109', 'Trade Tower, Kathmandu', 'BCNFN5566P', 'Banking & Finance', (SELECT id FROM sectors WHERE sector = 'Banking'), 'Active', ARRAY['Direct Tax','Financial Advisory'], '2024-06-25')`
   );
 
   await pool.query(

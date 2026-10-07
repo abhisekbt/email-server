@@ -24,7 +24,7 @@ export interface Company {
   mobile: string;
   address: string;
   pan: string;
-  industry: string;
+  sector: string | null;
   status: CompanyStatus;
   categories: string[];
   createdDate: string;
@@ -37,6 +37,17 @@ export interface Category {
   category: string;
   description: string;
   status?: CategoryStatus;
+  companyCount: number;
+  createdDate: string;
+}
+
+export type SectorStatus = "Active" | "Inactive";
+
+export interface Sector {
+  id: number;
+  sector: string;
+  description: string;
+  status: SectorStatus;
   companyCount: number;
   createdDate: string;
 }

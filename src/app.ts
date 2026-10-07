@@ -9,6 +9,7 @@ import { categoriesRouter } from "./routes/categories.routes";
 import { communicationsRouter } from "./routes/communications.routes";
 import { companiesRouter } from "./routes/companies.routes";
 import { smtpRouter } from "./routes/smtp.routes";
+import { sectorsRouter } from "./routes/sectors.routes";
 import { templatesRouter } from "./routes/templates.routes";
 
 export function createApp() {
@@ -42,6 +43,7 @@ export function createApp() {
   app.use("/api/auth", authRouter);
   app.use("/api/companies", companiesRouter);
   app.use("/api/categories", categoriesRouter);
+  app.use("/api/sectors", sectorsRouter);
   app.use("/api/email-templates", templatesRouter);
   app.use("/api/communications", communicationsRouter);
   app.use("/api/smtp-config", smtpRouter);

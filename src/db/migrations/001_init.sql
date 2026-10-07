@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS companies (
   address TEXT NOT NULL,
   pan TEXT NOT NULL,
   gst TEXT NOT NULL,
-  industry TEXT NOT NULL,
+  act TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'Active' CHECK (status IN ('Active', 'Pending', 'Inactive')),
   categories TEXT[] NOT NULL DEFAULT '{}',
   created_date DATE NOT NULL DEFAULT CURRENT_DATE

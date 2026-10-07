@@ -121,7 +121,7 @@ export class BackupService {
       }
       stats.users = usersRes.rows.length;
 
-      // 2. Sync Categories / Industries
+      // 2. Sync Categories / Acts
       const catRes = await primaryPool.query("SELECT * FROM categories ORDER BY id ASC");
       if (catRes.rows.length > 0) {
         for (const c of catRes.rows) {
@@ -139,13 +139,31 @@ export class BackupService {
       }
       stats.categories = catRes.rows.length;
 
-      // 3. Sync Companies / Clients
+      // 3. Sync Sectors
+      const sectorsRes = await primaryPool.query("SELECT * FROM sectors ORDER BY id ASC");
+      if (sectorsRes.rows.length > 0) {
+        for (const sector of sectorsRes.rows) {
+          await fallbackPool.query(
+            `INSERT INTO sectors (id, sector, description, status, created_date)
+             VALUES ($1, $2, $3, $4, $5)
+             ON CONFLICT (id) DO UPDATE SET
+               sector = EXCLUDED.sector,
+               description = EXCLUDED.description,
+               status = EXCLUDED.status,
+               created_date = EXCLUDED.created_date`,
+            [sector.id, sector.sector, sector.description, sector.status, sector.created_date]
+          );
+        }
+      }
+      stats.sectors = sectorsRes.rows.length;
+
+      // 4. Sync Companies / Clients
       const compRes = await primaryPool.query("SELECT * FROM companies ORDER BY id ASC");
       if (compRes.rows.length > 0) {
         for (const comp of compRes.rows) {
           await fallbackPool.query(
-            `INSERT INTO companies (id, company_name, contact_person, email, alternative_email, mobile, address, pan, industry, status, categories, created_date)
-             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+            `INSERT INTO companies (id, company_name, contact_person, email, alternative_email, mobile, address, pan, act, sector_id, status, categories, created_date)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
              ON CONFLICT (id) DO UPDATE SET
                company_name = EXCLUDED.company_name,
                contact_person = EXCLUDED.contact_person,
@@ -154,7 +172,8 @@ export class BackupService {
                mobile = EXCLUDED.mobile,
                address = EXCLUDED.address,
                pan = EXCLUDED.pan,
-               industry = EXCLUDED.industry,
+               act = EXCLUDED.act,
+               sector_id = EXCLUDED.sector_id,
                status = EXCLUDED.status,
                categories = EXCLUDED.categories,
                created_date = EXCLUDED.created_date`,
@@ -167,7 +186,8 @@ export class BackupService {
               comp.mobile,
               comp.address,
               comp.pan,
-              comp.industry,
+              comp.act,
+              comp.sector_id,
               comp.status,
               comp.categories,
               comp.created_date,

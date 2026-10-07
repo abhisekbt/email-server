@@ -1,0 +1,1 @@
+ 14 |   databaseUrl: required("DATABASE_URL", "postgresql://postgres.hznmgklivuolliwobfec:Supabase%401234@aws-0-ap-northeast-1.pooler.supabase.com:5432/postgres"),

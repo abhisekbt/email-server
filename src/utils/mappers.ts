@@ -17,7 +17,7 @@ interface CompanyRow {
   mobile: string;
   address: string;
   pan: string;
-  industry: string;
+  sector: string | null;
   status: Company["status"];
   categories: string[] | null;
   created_date: string | Date;
@@ -81,7 +81,7 @@ export function toCompany(row: CompanyRow): Company {
     mobile: row.mobile,
     address: row.address,
     pan: row.pan,
-    industry: row.industry,
+    sector: row.sector,
     status: row.status,
     categories: row.categories ?? [],
     createdDate: toDateString(row.created_date),
@@ -92,6 +92,26 @@ export function toCategory(row: CategoryRow): Category {
   return {
     id: row.id,
     category: row.category,
+    description: row.description,
+    status: row.status,
+    companyCount: Number(row.company_count ?? 0),
+    createdDate: toDateString(row.created_date),
+  };
+}
+
+interface SectorRow {
+  id: number;
+  sector: string;
+  description: string;
+  status: "Active" | "Inactive";
+  company_count: number | string | null;
+  created_date: string | Date;
+}
+
+export function toSector(row: SectorRow) {
+  return {
+    id: row.id,
+    sector: row.sector,
     description: row.description,
     status: row.status,
     companyCount: Number(row.company_count ?? 0),

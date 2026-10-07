@@ -8,9 +8,9 @@ export const companyPayloadSchema = z.object({
   mobile: z.string().min(7),
   address: z.string().min(3),
   pan: z.string().min(3),
-  industry: z.string().min(1),
+  sector: z.string().min(1),
   status: z.enum(["Active", "Inactive"]),
-  categories: z.array(z.string()).min(1),
+  categories: z.array(z.string()).default([]),
 });
 
 export const companyUpdateSchema = companyPayloadSchema.partial();
@@ -26,6 +26,14 @@ export const categoryPayloadSchema = z.object({
 });
 
 export const categoryUpdateSchema = categoryPayloadSchema.partial();
+
+export const sectorPayloadSchema = z.object({
+  sector: z.string().min(1),
+  description: z.string().default(""),
+  status: z.enum(["Active", "Inactive"]).optional().default("Active"),
+});
+
+export const sectorUpdateSchema = sectorPayloadSchema.partial();
 
 export const templatePayloadSchema = z.object({
   templateName: z.string().min(2),
